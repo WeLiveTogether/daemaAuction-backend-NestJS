@@ -1,35 +1,26 @@
-import { User } from "src/auth/entity/user.entity";
-import { Category } from "src/category/entity/Category.entity";
-import { SubCategory } from "src/category/entity/subCategory.entity";
-import { BaseTimeEntity } from "src/entities/baseTimeEntity";
-import { Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { User } from 'src/auth/entity/user.entity';
+import { Category } from 'src/category/entity/Category.entity';
+import { SubCategory } from 'src/category/entity/subCategory.entity';
+import { BaseTimeEntity } from 'src/entities/baseTimeEntity';
+import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Product extends BaseTimeEntity{
-    @PrimaryGeneratedColumn()
-    id: number;
+export class Product extends BaseTimeEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    name: string;
+  name: string;
 
-    immePrice: number;
+  immePrice: number;
 
-    auctionPrice: number;
+  auctionPrice: number;
 
-    @ManyToOne(
-        () => User,
-        (user) => user.products
-    )
-    user: User;
+  @ManyToOne(() => User, (user) => user.products)
+  user: User;
 
-    @ManyToOne(
-        ()=>Category,
-        (category)=>category.products
-    )
-    category: Category;
+  @ManyToOne(() => Category, (category) => category.products)
+  category: Category;
 
-    @ManyToOne(
-        ()=>SubCategory,
-        (subcategory)=>subcategory.products
-    )
-    subCategory: SubCategory;
+  @ManyToOne(() => SubCategory, (subcategory) => subcategory.products)
+  subCategory: SubCategory;
 }

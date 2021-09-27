@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Controller, Post, Res, UseInterceptors } from '@nestjs/common';
 import { Response } from 'express';
 import { ConvertToken } from 'src/CustomDecorator/tokenConvert';

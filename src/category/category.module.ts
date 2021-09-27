@@ -6,7 +6,9 @@ import { SubCategoryRepository } from './entity/subCategory.repository';
 import { CategoryController } from './category.controller';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([CategoryRepository, SubCategoryRepository])],
+  imports: [
+    TypeOrmModule.forFeature([CategoryRepository, SubCategoryRepository]),
+  ],
   controllers: [CategoryController],
   providers: [CategoryService],
 })

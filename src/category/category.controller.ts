@@ -4,11 +4,11 @@ import { CategoryService } from './category.service';
 
 @Controller('category')
 export class CategoryController {
-    constructor(private readonly categoryService:CategoryService) {}
+  constructor(private readonly categoryService: CategoryService) {}
 
-    @Get()
-    async initialCategory(@Res() res:Response){
-        await this.categoryService.initialCategory();
-        return res.status(HttpStatus.OK).json({"result":"success"});
-    }
+  @Get()
+  async initialCategory(@Res() res: Response) {
+    await this.categoryService.initialCategory();
+    return res.status(HttpStatus.OK).json({ result: 'success' });
+  }
 }

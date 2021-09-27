@@ -1,7 +1,6 @@
-import { CreateDateColumn } from "typeorm";
+import { CreateDateColumn } from 'typeorm';
 
-export class BaseTimeEntity{
-
-    @CreateDateColumn()
-    private createdDate:Date
+export class BaseTimeEntity {
+  @CreateDateColumn()
+  private createdDate: Date;
 }

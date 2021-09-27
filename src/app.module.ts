@@ -18,19 +18,29 @@ import { JoinRoom } from './chat/entity/joinRoom.entity';
   imports: [
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
-      "type": "mysql",
-      "host": process.env.DB_HOST,
-      "port": 3306,
-      "username": process.env.DB_USER,
-      "password": process.env.DB_PWD,
-      "database": process.env.DB_NM,
-      "entities": [
-        "dist/src/**/entity/*.entity{.ts,.js}"
+      type: 'mysql',
+      host: process.env.DB_HOST,
+      port: 3306,
+      username: process.env.DB_USER,
+      password: process.env.DB_PWD,
+      database: process.env.DB_NM,
+      entities: [
+        'dist/auth/entity/*.entity{.ts,.js}',
+        'dist/category/entity/*.entity{.ts,.js}',
+        'dist/chat/entity/*.entity{.ts,.js}',
+        'dist/product/entity/*.entity{.ts,.js}',
       ],
-      "synchronize": false,
-      "timezone": "+09:00"
+      synchronize: false,
+      timezone: '+09:00',
     }),
-    TypeOrmModule.forFeature([User, Product, Room, JoinRoom, Category, SubCategory]),
+    TypeOrmModule.forFeature([
+      User,
+      Product,
+      Room,
+      JoinRoom,
+      Category,
+      SubCategory,
+    ]),
     ChatModule,
     AuthModule,
     ProductModule,

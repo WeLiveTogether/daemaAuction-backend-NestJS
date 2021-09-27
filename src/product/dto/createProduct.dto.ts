@@ -1,11 +1,11 @@
-export class CreateProduct{
-    name: string;
+export class CreateProduct {
+  name: string;
 
-    immePrice: number;
+  immePrice: number;
 
-    auctionPrice: number;
+  auctionPrice: number;
 
-    category: string;
+  category: string;
 
-    subCategory: string;
+  subCategory: string;
 }
