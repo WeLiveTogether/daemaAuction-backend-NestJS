@@ -1,6 +1,6 @@
 import { Product } from 'src/product/entity/product.entity';
 import { Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Category } from './Category.entity';
+import { Category } from './category.entity';
 
 @Entity()
 export class SubCategory {

@@ -1,6 +1,6 @@
 import { Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { JoinRoom } from './joinRoom.entity';
-import { Message } from './Message.entity';
+import { Message } from './message.entity';
 
 @Entity()
 export class Room {

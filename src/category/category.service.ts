@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Category } from './entity/Category.entity';
+import { Category } from './entity/category.entity';
 import { CategoryRepository } from './entity/category.repository';
 import { SubCategory } from './entity/subCategory.entity';
 import { SubCategoryRepository } from './entity/subCategory.repository';
