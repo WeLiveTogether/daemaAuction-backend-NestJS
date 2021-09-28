@@ -1,5 +1,5 @@
 import { User } from 'src/auth/entity/user.entity';
-import { Category } from 'src/category/entity/Category.entity';
+import { Category } from 'src/category/entity/category.entity';
 import { SubCategory } from 'src/category/entity/subCategory.entity';
 import { BaseTimeEntity } from 'src/entities/baseTimeEntity';
 import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
