@@ -11,6 +11,8 @@ export class Message {
 
   context: string;
 
+  sendAt: Date;
+
   @ManyToOne(() => User, (user) => user.messages)
   user: User;
 

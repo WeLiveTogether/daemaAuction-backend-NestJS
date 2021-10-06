@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/auth/entity/user.entity';
 import { CategoryRepository } from 'src/category/entity/category.repository';
 import { SubCategoryRepository } from 'src/category/entity/subCategory.repository';
 import { TokenContext } from 'src/dto/tokenContext';
@@ -19,7 +18,10 @@ export class ProductService {
     private subCategoryRepository: SubCategoryRepository,
   ) {}
 
-  async create(user: TokenContext, createProduct: CreateProduct) {
+  async create(
+    user: TokenContext,
+    createProduct: CreateProduct,
+  ): Promise<Product> {
     const product: Product = new Product();
 
     product.name = createProduct.name;
@@ -33,5 +35,7 @@ export class ProductService {
     );
 
     const savedProduct = await this.productRepository.save(product);
+
+    return savedProduct;
   }
 }
