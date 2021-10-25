@@ -1,4 +1,4 @@
-import { Controller, Get, HttpStatus, Param, Query, Res } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { Product } from './entity/product.entity';
 import { ProductService } from './product.service';
