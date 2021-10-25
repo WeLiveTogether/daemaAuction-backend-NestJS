@@ -13,6 +13,7 @@ import { Category } from './category/entity/category.entity';
 import { SubCategory } from './category/entity/subCategory.entity';
 import { Room } from './chat/entity/room.entity';
 import { JoinRoom } from './chat/entity/joinRoom.entity';
+import { OauthModule } from './oauth/oauth.module';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { JoinRoom } from './chat/entity/joinRoom.entity';
     AuthModule,
     ProductModule,
     CategoryModule,
+    OauthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

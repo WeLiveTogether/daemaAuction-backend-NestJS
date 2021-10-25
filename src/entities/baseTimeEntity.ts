@@ -1,6 +1,9 @@
-import { CreateDateColumn } from 'typeorm';
+import { CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
-export class BaseTimeEntity {
-  @CreateDateColumn()
-  private createdDate: Date;
+export abstract class BaseTimeEntity {
+  @CreateDateColumn({ name: 'created_date' })
+  createdDate: Date;
+
+  @UpdateDateColumn({ name: 'modified_date' })
+  modifiedDate: Date;
 }
