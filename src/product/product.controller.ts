@@ -1,13 +1,20 @@
 import { Controller, Get, HttpStatus, Param, Res } from '@nestjs/common';
+import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { Product } from './entity/product.entity';
 import { ProductService } from './product.service';
 
+@ApiTags('Product')
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Get('/category/:name')
+  @ApiOperation({
+    summary: '카테고리로 분류',
+    description: '카테고리 별로 분류',
+  })
+  @ApiOkResponse({ description: '카테고리 별로 분류', type: Array })
   async findByCategory(
     @Param('name') categoryName: string,
     @Res() res: Response,
@@ -21,6 +28,11 @@ export class ProductController {
   }
 
   @Get('/subCategory/:name')
+  @ApiOperation({
+    summary: '부 카테고리로 분류',
+    description: '부 카테고리 별로 분류',
+  })
+  @ApiOkResponse({ description: '부 카테고리 별로 분류', type: Array })
   async findBySubCategory(
     @Param('name') subCategoryName: string,
     @Res() res: Response,
