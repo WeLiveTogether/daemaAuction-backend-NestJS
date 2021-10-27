@@ -10,23 +10,11 @@ export class ProductService {
     private productRepository: ProductRepository,
   ) {}
 
-  async findByCategory(categoryName: string): Promise<Array<Product>> {
-    const list: Array<Product> = await this.productRepository.findByCategory(
-      categoryName,
-    );
-
-    return list;
+  async findByCategory(categoryName: string): Promise<Product[]> {
+    return this.productRepository.findByCategory(categoryName);
   }
 
-  async findBySubCategory(subCategoryName: string): Promise<Array<Product>> {
-    console.log(subCategoryName);
-
-    const list: Array<Product> = await this.productRepository.findBySubCategory(
-      subCategoryName,
-    );
-
-    console.log(list);
-
-    return list;
+  async findBySubCategory(subCategoryName: string): Promise<Product[]> {
+    return this.productRepository.findBySubCategory(subCategoryName);
   }
 }
