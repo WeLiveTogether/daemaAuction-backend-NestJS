@@ -16,19 +16,19 @@ import { ProductImage } from './productImage.entity';
 @Entity()
 export class Product extends BaseTimeEntity {
   @PrimaryGeneratedColumn()
-  @ApiProperty({ description: '상품 아이디' })
+  @ApiProperty({ description: '상품 아이디', example: 5 })
   id: number;
 
   @Column()
-  @ApiProperty({ description: '상품 이름' })
+  @ApiProperty({ description: '상품 이름', example: '2020년형 중고 노트북' })
   name: string;
 
   @Column({ name: 'imme_price' })
-  @ApiProperty({ description: '즉시 판매가' })
+  @ApiProperty({ description: '즉시 판매가', example: 3000000 })
   immePrice: number;
 
   @Column({ name: 'auction_price' })
-  @ApiProperty({ description: '경매 판매가' })
+  @ApiProperty({ description: '경매 판매가', example: 2500000 })
   auctionPrice: number;
 
   @Column({ name: 'start_at' })
@@ -36,11 +36,11 @@ export class Product extends BaseTimeEntity {
   startAt: Date;
 
   @Column()
-  @ApiProperty({ description: '방문 횟수' })
+  @ApiProperty({ description: '방문 횟수', example: 2 })
   views: number;
 
   @Column({ name: 'user_id' })
-  @ApiProperty({ description: '상품 올린 유저 아이디' })
+  @ApiProperty({ description: '상품 올린 유저 아이디', example: 5 })
   userId: number;
 
   @ManyToOne(() => User, (user) => user.products)
@@ -51,7 +51,7 @@ export class Product extends BaseTimeEntity {
   productImages: ProductImage[];
 
   @Column({ name: 'category_id' })
-  @ApiProperty({ description: '카테고리 아이디' })
+  @ApiProperty({ description: '카테고리 아이디', example: 2 })
   categoryId: number;
 
   @ManyToOne(() => Category, (category) => category.products)
@@ -59,7 +59,7 @@ export class Product extends BaseTimeEntity {
   category: Category;
 
   @Column({ name: 'sub_category_id' })
-  @ApiProperty({ description: '부 카테고리 아이디' })
+  @ApiProperty({ description: '부 카테고리 아이디', example: 3 })
   subCategoryId: number;
 
   @ManyToOne(() => SubCategory, (subcategory) => subcategory.products)
