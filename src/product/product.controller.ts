@@ -45,7 +45,7 @@ export class ProductController {
   })
   @ApiOkResponse({
     description: '부 카테고리 별로 분류',
-    type: Product,
+    type: ResponseProductList,
     isArray: true,
   })
   @ApiParam({
