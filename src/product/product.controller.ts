@@ -7,7 +7,6 @@ import {
 } from '@nestjs/swagger';
 import { Response } from 'express';
 import { ResponseProductList } from './dto/responseProductList.dto';
-import { Product } from './entity/product.entity';
 import { ProductService } from './product.service';
 
 @ApiTags('Product')
