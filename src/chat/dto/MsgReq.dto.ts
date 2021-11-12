@@ -1,4 +1,5 @@
 export default class MsgReq {
   msg: string;
-  userID: number;
+  userId: number;
+  roomId: number;
 }

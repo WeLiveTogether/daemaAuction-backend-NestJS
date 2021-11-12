@@ -4,6 +4,14 @@ import { Room } from './room.entity';
 
 @Entity()
 export class Message {
+  constructor(writer: string, context: string, sendAt: Date, user: User, room: Room){
+    writer = this.writer;
+    context = this.context;
+    sendAt = this.sendAt;
+    user = this.user;
+    room = this.room;
+  }
+
   @PrimaryGeneratedColumn()
   id: number;
 

@@ -1,4 +1,5 @@
 import { Logger } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import {
   ConnectedSocket,
   MessageBody,
@@ -11,13 +12,25 @@ import {
   WsResponse,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import MsgReq from './dto/MsgReq.dto';
-import MsgRes from './dto/MsgRes.dto';
+import { UserRepository } from 'src/auth/entity/user.repository';
+import msgReq from './dto/MsgReq.dto';
+import msgRes from './dto/MsgRes.dto';
+import { Message } from './entity/message.entity';
+import { MessageRepository } from './entity/message.repository';
+import { RoomRepository } from './entity/room.repository';
 
 @WebSocketGateway()
 export class ChatGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
+  constructor(
+    @InjectRepository(UserRepository)
+    private readonly userRepository: UserRepository,
+    @InjectRepository(RoomRepository)
+    private readonly roomRepository: RoomRepository,
+    @InjectRepository(MessageRepository)
+    private readonly messageRepository: MessageRepository
+  ){}
   @WebSocketServer()
   server: Server;
   private logger: Logger = new Logger('AppGateway');
@@ -32,21 +45,30 @@ export class ChatGateway
     this.logger.log('Gateway Init');
   }
 
-  // createRoom(socket: Socket, data: string): WsResponse<unknown> {
-  //   socket.join('aRoom');
-  //   socket.to('aRoom').emit('roomCreated', { room: 'aRoom' });
-  //   return { event: 'roomCreated', room: 'aRoom' };
-  // }
+  joinRoom(socket: Socket, productId: number): void {
+    socket.join(String(productId));
+  }
 
   @SubscribeMessage('msgToServer')
-  handleMessage(
+  async handleMessage(
     @ConnectedSocket() client: Socket,
-    @MessageBody() data: MsgReq,
+    @MessageBody() data: msgReq,
   ) {
-    const res: MsgRes = {
+    const time = new Date(client.handshake.time)
+
+    const res: msgRes = {
       msg: data.msg,
-      senderID: data.userID,
-      time: new Date(client.handshake.time).toLocaleString(),
+      senderId: data.userId,
+      time: time.toLocaleString(),
     };
+
+    const user = await this.userRepository.findOne(data.userId);
+    const room = await this.roomRepository.findOne(data.roomId);
+
+    const message = new Message(user.username, res.msg, time, user, room);
+
+    await this.messageRepository.save(message);
+
+    client.to(String(data.roomId)).emit('msgToClient', res);
   }
 }
