@@ -45,10 +45,6 @@ export class ChatGateway
     this.logger.log('Gateway Init');
   }
 
-  joinRoom(socket: Socket, productId: number): void {
-    socket.join(String(productId));
-  }
-
   @SubscribeMessage('msgToServer')
   async handleMessage(
     @ConnectedSocket() client: Socket,
@@ -68,7 +64,10 @@ export class ChatGateway
     const message = new Message(user.username, res.msg, time, user, room);
 
     await this.messageRepository.save(message);
+    room.messages.push(message);
+    await this.roomRepository.save(room);
 
+    // join room 없이 to로 그냥 전송
     client.to(String(data.roomId)).emit('msgToClient', res);
   }
 }
