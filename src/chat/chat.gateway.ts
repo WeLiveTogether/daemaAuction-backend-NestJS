@@ -15,8 +15,10 @@ import { Server, Socket } from 'socket.io';
 import { UserRepository } from 'src/auth/entity/user.repository';
 import msgReq from './dto/MsgReq.dto';
 import msgRes from './dto/MsgRes.dto';
+import { JoinRoom } from './entity/joinRoom.entity';
 import { Message } from './entity/message.entity';
 import { MessageRepository } from './entity/message.repository';
+import { Room } from './entity/room.entity';
 import { RoomRepository } from './entity/room.repository';
 
 @WebSocketGateway()
@@ -47,6 +49,16 @@ export class ChatGateway
 
   joinRoom(socket: Socket, roomId: number): void {
     socket.join(String(roomId));
+  }
+
+  @SubscribeMessage('chatRoomList')
+  async chatRoomList(
+    @ConnectedSocket() client: Socket,
+    @MessageBody() userId: number
+  ){
+    const roomList:Room[] = await this.roomRepository.find({where: {joinRooms: userId}});
+    
+    client.to(client.id).emit('chatRoomList', roomList);
   }
 
   @SubscribeMessage('msgToServer')
