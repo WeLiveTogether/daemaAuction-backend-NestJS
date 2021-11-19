@@ -12,10 +12,11 @@ export class ProductRepository extends Repository<Product> {
       .innerJoinAndSelect('product.subCategory', 'subCategory')
       .select([
         'product.id',
-        'product.name',
+        'product.title',
         'product.immePrice',
         'product.auctionPrice',
-        'product.startAt',
+        'product.createDate',
+        'product.imageUrl',
         'product.views',
         'product.createdDate',
         'product.modifiedDate',
@@ -34,10 +35,11 @@ export class ProductRepository extends Repository<Product> {
       .innerJoinAndSelect('product.subCategory', 'subCategory')
       .select([
         'product.id',
-        'product.name',
+        'product.title',
         'product.immePrice',
         'product.auctionPrice',
-        'product.startAt',
+        'product.createDate',
+        'product.imageUrl',
         'product.views',
         'product.createdDate',
         'product.modifiedDate',
