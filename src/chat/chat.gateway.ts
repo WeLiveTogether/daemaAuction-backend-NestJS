@@ -62,6 +62,14 @@ export class ChatGateway
     client.to(client.id).emit('chatRoomList', roomList);
   }
 
+  @SubscribeMessage('msgList')
+  async msgList(
+    @ConnectedSocket() client: Socket,
+    @MessageBody() roomId: number
+  ){
+    client.to(String(roomId)).emit('chatMsgList', (await this.roomRepository.findOne(roomId)).messages)
+  }
+
   @SubscribeMessage('msgToServer')
   async handleMessage(
     @ConnectedSocket() client: Socket,
