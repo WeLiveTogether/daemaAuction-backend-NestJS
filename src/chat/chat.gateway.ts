@@ -47,6 +47,7 @@ export class ChatGateway
     this.logger.log('Gateway Init');
   }
 
+  @SubscribeMessage('joinRoom')
   joinRoom(socket: Socket, roomId: number): void {
     socket.join(String(roomId));
   }
