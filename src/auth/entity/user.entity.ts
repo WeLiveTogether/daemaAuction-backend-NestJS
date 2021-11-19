@@ -31,11 +31,6 @@ export class User {
   @Column({ name: 'EMAIL', length: 512, unique: true })
   email: string;
 
-  @Max(1)
-  @Min(1)
-  @Column({ name: 'EMAIL_VERIFIED_YN', length: 1, nullable: false })
-  emailVerifiedYn: string;
-
   @Max(512)
   @Column({ name: 'PROFILE_IMAGE_URL', length: 512, nullable: false })
   profileImageUrl: string;
