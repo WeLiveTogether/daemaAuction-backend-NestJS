@@ -21,7 +21,7 @@ import { MessageRepository } from './entity/message.repository';
 import { Room } from './entity/room.entity';
 import { RoomRepository } from './entity/room.repository';
 
-@WebSocketGateway()
+@WebSocketGateway({ transports: ['websocket'] })
 export class ChatGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
