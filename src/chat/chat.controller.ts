@@ -27,10 +27,10 @@ export class ChatController {
     @Res() res: Response,
   ): Promise<Response<any, Record<string, any>>> {
     try {
-      this.chatService.createRoom(productId);
+      const result: string = await this.chatService.createRoom(productId);
+      return res.status(HttpStatus.CREATED).json({ 'response': result });
     } catch (error: unknown) {
       return res.status(HttpStatus.BAD_GATEWAY).json({ 'response': error });
     }
-    return res.status(HttpStatus.CREATED).json({ 'response': 'room created' });
   }
 }

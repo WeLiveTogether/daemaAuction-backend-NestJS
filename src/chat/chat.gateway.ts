@@ -21,7 +21,7 @@ import { MessageRepository } from './entity/message.repository';
 import { Room } from './entity/room.entity';
 import { RoomRepository } from './entity/room.repository';
 
-@WebSocketGateway({ transports: ['websocket'] })
+@WebSocketGateway()
 export class ChatGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
@@ -49,6 +49,7 @@ export class ChatGateway
 
   @SubscribeMessage('joinRoom')
   joinRoom(socket: Socket, roomId: number): void {
+    this.logger.log('event joinRoom');
     socket.join(String(roomId));
   }
 
@@ -57,6 +58,7 @@ export class ChatGateway
     @ConnectedSocket() client: Socket,
     @MessageBody() userId: number
   ){
+    this.logger.log('event chatRoomList');
     const roomList:Room[] = await this.roomRepository.find({where: {joinRooms: userId}});
     
     client.to(client.id).emit('chatRoomList', roomList);
@@ -67,7 +69,8 @@ export class ChatGateway
     @ConnectedSocket() client: Socket,
     @MessageBody() roomId: number
   ){
-    client.to(String(roomId)).emit('chatMsgList', (await this.roomRepository.findOne(roomId)).messages)
+    this.logger.log('evnet msgList');
+    client.to(String(roomId)).emit('chatMsgList', (await this.messageRepository.findOne({ where: {room: await this.roomRepository.findOne(roomId)} })))
   }
 
   @SubscribeMessage('msgToServer')
@@ -75,6 +78,7 @@ export class ChatGateway
     @ConnectedSocket() client: Socket,
     @MessageBody() data: msgReq,
   ) {
+    this.logger.log('evnet msgToServer');
     const time = new Date(client.handshake.time)
 
     const res: msgRes = {

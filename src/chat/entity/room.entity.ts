@@ -1,4 +1,4 @@
-import { Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { JoinRoom } from './joinRoom.entity';
 import { Message } from './message.entity';
 
@@ -10,8 +10,10 @@ export class Room {
   msgCnt: number;
 
   @OneToMany(() => Message, (message) => message.room)
+  @JoinColumn({ name: 'message'})
   messages: Message[];
 
   @OneToMany(() => JoinRoom, (joinRoom) => joinRoom.room)
+  @JoinColumn()
   joinRooms: JoinRoom[];
 }

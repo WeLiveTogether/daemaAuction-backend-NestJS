@@ -15,11 +15,10 @@ import {
 
 @Entity()
 export class User {
-  @Exclude()
   @PrimaryGeneratedColumn({ name: 'USER_SEQ' })
   userSeq: number;
 
-  @Column({ name: 'user_id', length: 64, unique: true })
+  @Column({ name: 'USER_ID', length: 64, unique: true })
   userId: string;
 
   @Column({ name: 'USERNAME', length: 100 })
