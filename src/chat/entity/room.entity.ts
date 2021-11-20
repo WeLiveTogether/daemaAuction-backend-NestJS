@@ -10,7 +10,7 @@ export class Room {
   msgCnt: number;
 
   @OneToMany(() => Message, (message) => message.room)
-  @JoinColumn({ name: 'message'})
+  @JoinColumn()
   messages: Message[];
 
   @OneToMany(() => JoinRoom, (joinRoom) => joinRoom.room)
