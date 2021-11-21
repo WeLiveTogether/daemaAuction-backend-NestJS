@@ -40,7 +40,7 @@ export class Product extends BaseTimeEntity {
   @ApiProperty({ description: '이미지 url', example: 'https://w.namu.la/s/ad786060df058256c8f742dceef224cefe58a35be6ecc1c8671cbeb5b43a4b6e5efdfe3fe3faf9073100088e2584eb2b570d43e7b7428c4b34c9c71f6d9818ae81e5793b6830a8e71fefa050191c92b3'})
   imageUrl: string;
 
-  @Column({ name: 'SALE_STATUS' })
+  @Column({ name: 'sale_status' })
   @ApiProperty({ description: '판매 상태', example: 'SOLD_OUT'})
   saleStatus: ProductSaleStatus;
 

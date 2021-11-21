@@ -1,6 +1,6 @@
 export default class MsgRes {
   msg: string;
-  senderId: number;
+  senderId: string;
   senderName: string;
   time: string;
 }

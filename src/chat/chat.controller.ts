@@ -8,6 +8,12 @@ import { ChatService } from './chat.service';
 export class ChatController {
   constructor(private readonly chatService: ChatService) {}
 
+  @Get('/test')
+  async test(@Res() res: Response){
+    this.chatService.test();
+    return 'asdf';
+  }
+
   @Get('/:id')
   @ApiOperation({
     summary: '채팅방 생성',
@@ -23,7 +29,7 @@ export class ChatController {
     example: 5,
   })
   async createChatRoom(
-    @Param() productId: string,
+    @Param('id') productId: number,
     @Res() res: Response,
   ): Promise<Response<any, Record<string, any>>> {
     try {
@@ -33,4 +39,6 @@ export class ChatController {
       return res.status(HttpStatus.BAD_GATEWAY).json({ 'response': error });
     }
   }
+
+  
 }

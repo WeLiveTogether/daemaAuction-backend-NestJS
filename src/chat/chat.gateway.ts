@@ -55,6 +55,8 @@ export class ChatGateway
   joinRoom(socket: Socket, roomId: number): void {
     this.logger.log('event joinRoom');
     socket.join(String(roomId));
+    console.log('socket.id:', socket.id)
+    console.log('socket.rooms:',socket.rooms)
   }
 
   // 채팅방 리스트 가져오기
@@ -64,13 +66,14 @@ export class ChatGateway
     @MessageBody() userId: string
   ){
     this.logger.log('event chatRoomList');
-    const roomList:JoinRoom[] = await this.joinRoomRepository.find({where: {user: await this.userRepository.findOne({ where: {userId: userId}})}});
+    const roomList:JoinRoom[] = await this.joinRoomRepository.find({
+      where: {user: await this.userRepository.findOne({ where: {userId: userId}}) },
+      relations: ['room', 'user']
+    });
 
-    console.log(client.id);
+    console.log(roomList);
     
     this.server.to(client.id).emit('chatRoomList', roomList);
-
-    // client.in().emit('chatRoomList', roomList);
   }
 
   // 메시지 리스트 가져오기
@@ -84,6 +87,7 @@ export class ChatGateway
 
     this.logger.log('evnet msgList');
     this.server.to(String(roomId)).emit('chatMsgList', messages)
+    console.log(client.rooms)
     console.log(messages)
   }
 
@@ -115,11 +119,10 @@ export class ChatGateway
     message.user = user;
     message.room = room;
 
-    console.log(message);
-
-    await this.messageRepository.save(message);
-    await this.roomRepository.save(room);
+    this.messageRepository.save(message);
+    this.roomRepository.save(room);
 
     this.server.to(String(data.roomId)).emit('msgToClient', res);
+    console.log('message sended!');
   }
 }
