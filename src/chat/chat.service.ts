@@ -26,7 +26,7 @@ export class ChatService {
     let room: Room = new Room();
     // 메시지 갯수인데 DB바꾸기 좀 그래서 그냥 제품id 넣어놈
     room.msgCnt = productId;
-    let customer: JoinRoom = new JoinRoom();
+    let consumer: JoinRoom = new JoinRoom();
     let seller: JoinRoom = new JoinRoom();
 
     const product: Product = await this.productRepository.findOne(productId);
@@ -35,17 +35,15 @@ export class ChatService {
 
     room = await this.roomRepository.save(room);
 
-    customer.room = room;
-    customer.user = await this.userRepository.findOne(product.customerId);
-
-    console.log(customer)
+    consumer.room = room;
+    consumer.user = await this.userRepository.findOne(product.consumerId);
 
     seller.room = room;
     seller.user = await this.userRepository.findOne(product.userId);
 
     console.log(seller)
 
-    customer = await this.joinRoomRepository.save(customer)
+    consumer = await this.joinRoomRepository.save(consumer)
     seller = await this.joinRoomRepository.save(seller)
 
     return 'room created';
