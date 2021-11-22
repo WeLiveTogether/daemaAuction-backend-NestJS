@@ -52,9 +52,9 @@ export class Product extends BaseTimeEntity {
   @ApiProperty({ description: '방문 횟수', example: 2 })
   views: number;
 
-  @Column({ name: 'customer_id' })
+  @Column({ name: 'consumer_id' })
   @ApiProperty({ description: '구매자 아이디', example: 5 })
-  customerId: number;
+  consumerId: number;
 
   @Column({ name: 'user_id' })
   @ApiProperty({ description: '상품 올린 유저 아이디', example: 5 })
