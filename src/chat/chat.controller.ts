@@ -36,7 +36,7 @@ export class ChatController {
       const result: string = await this.chatService.createRoom(productId);
       return res.status(HttpStatus.CREATED).json({ 'response': result });
     } catch (error: unknown) {
-      return res.status(HttpStatus.BAD_GATEWAY).json({ 'response': error });
+      return res.status(HttpStatus.BAD_REQUEST).json({ 'response': error });
     }
   }
 
