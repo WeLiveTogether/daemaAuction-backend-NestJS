@@ -36,7 +36,7 @@ export class ChatService {
     room = await this.roomRepository.save(room);
 
     consumer.room = room;
-    consumer.user = await this.userRepository.findOne(product.consumerId);
+    consumer.user = await this.userRepository.findOne({where: {userId: product.consumerId}});
 
     seller.room = room;
     seller.user = await this.userRepository.findOne(product.userId);
